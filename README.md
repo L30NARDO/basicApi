@@ -3,7 +3,7 @@ Basic crud and documentation in api java with springboot
 
 ## Descrição da aplicação [BR]
 Nesta simples aplicação JAVA realizei operações básicas de criar, ler, atualizar e deletar dados,
-integrando api com banco de dados MySQL, também utilizando do SWAGGER para documentar e testar cada
+integrando api com banco de dados Postgres, também utilizando do SWAGGER para documentar e testar cada
 endpoint.
 
 ### Ferramentas
