@@ -13,7 +13,7 @@
 
 ## Description aplicatrion [EN]
     In this simple JAVA application I performed basic operations of creating, reading, updating and deleting data,
-    integrating api with MySQL database, also using SWAGGER to document and test each endpoint.
+    integrating api with Postgres database, also using SWAGGER to document and test each endpoint.
 
 ### Tools
 - JAVA 11
