@@ -6,6 +6,7 @@ import com.dev.basicapi.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -50,6 +51,15 @@ public class UserController {
     public ResponseEntity<?> delete(@PathParam("id") Long id){
         userService.delete(id);
         return ResponseEntity.ok("");
+    }
+
+    @ApiOperation(value = "Delete a user")
+    @DeleteMapping("/login")
+    public ResponseEntity<?> login(@RequestParam String email, @RequestParam String password){
+        UserModel userModel = userService.login(email, password);
+        return userModel.getId()  != null ?
+                ResponseEntity.status(HttpStatus.OK).body(userModel) :
+                ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
     }
 
 }

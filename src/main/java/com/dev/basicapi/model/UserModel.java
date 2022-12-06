@@ -1,5 +1,6 @@
 package com.dev.basicapi.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -33,4 +34,11 @@ public class UserModel implements Serializable {
 
     @OneToOne
     private AddressModel address;
+
+    @Column(name = "email")
+    private String email;
+
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @Column(name = "password")
+    private String password;
 }

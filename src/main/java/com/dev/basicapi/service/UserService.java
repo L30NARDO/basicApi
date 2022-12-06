@@ -3,6 +3,7 @@ package com.dev.basicapi.service;
 import com.dev.basicapi.model.UserModel;
 import com.dev.basicapi.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -14,6 +15,9 @@ public class UserService {
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    PasswordEncoder passwordEncoder;
 
     public List<UserModel> findAll(){
         List<UserModel> userModelList = new ArrayList<>();
@@ -42,6 +46,9 @@ public class UserService {
     public UserModel save(UserModel userModel){
 
         try {
+            if ( userModel.getPassword() != null){
+            userModel.setPassword( passwordEncoder.encode(userModel.getPassword()));
+            }
             userModel = userRepository.save(userModel);
 
         }catch (Exception e){
@@ -76,4 +83,20 @@ public class UserService {
         }
 
     }
+
+
+    public UserModel login(String email, String password){
+        boolean valid = false;
+        if (email.isEmpty() || password.isEmpty()) {
+          return new UserModel();
+        }
+            Optional<UserModel> userModelOpt = userRepository.findByEmail(email);
+            valid = passwordEncoder.matches(password, userModelOpt.get().getPassword());
+
+        if(valid){
+            return userModelOpt.get();
+        }
+        return new UserModel();
+    }
+
 }
